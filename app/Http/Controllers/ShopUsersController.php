@@ -37,12 +37,10 @@ class ShopUsersController extends Controller
                 'phone.max'=>'手机号格式错误',
                 'phone.min'=>'手机号格式错误',
             ]);
-            ShopUser::create([            'name'=>$request->name,
-                    'password'=>$request->password,
-                    'phone'=>$request->phone,
-                    'category_id'=>$request->category_id,
-                ]
-            );
+
+            DB::table('businessusers')->insert([
+                ['phone' =>$request->phone, 'name' => $request->name,'password'=>$request->password,'category_id'=>$request->category_id],
+            ]);
             session()->flash('success','注册进行中,请耐心等待2-3个工作日,我们会以短信的方式通知你进程');
             return redirect()->route('shopusers.create');
         }
