@@ -16,6 +16,9 @@ Route::get('/', function () {
 });
 Route::get('/login','LoginController@create')->name('login');
 Route::post('/login','LoginController@store')->name('login');
+Route::get('/change/{businessuser}','ChangesController@edit')->name('change.edit');
+Route::post('/change/{businessuser}','ChangesController@update')->name('change.update');
 Route::get('/logout','LoginController@destroy')->name('logout');
+Route::get('/logout2','LoginController@destroy2')->name('logout2');
 Route::resource('shopusers','ShopUsersController');
 Route::resource('businessuser','BusinessUserController');

@@ -44,5 +44,11 @@ class LoginController extends Controller
         session()->flash('success','退出成功');
         return redirect()->route('login');
     }
+    public function destroy2()
+    {
+        Auth::logout();
+        session()->flash('success','修改成功,需要重新登录');
+        return redirect()->route('login');
+    }
 
 }
