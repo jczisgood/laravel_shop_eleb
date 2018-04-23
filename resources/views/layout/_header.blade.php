@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">饿了吧</a>
+            <a class="navbar-brand" href="{{route('businessuser.index')}}">饿了吧</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,8 +17,9 @@
                 @guest
                 <li class="active"><a href="{{route('shopusers.create')}}">商家注册 <span class="sr-only">(current)</span></a></li>
                 <li><a href="{{route('login')}}">商家登录</a></li>
-                <li><a href="">商家详情</a></li>
                 @endguest
+                <li><a href="{{route('commodity.index')}}">食品分类</a></li>
+
                 <li class="dropdown">
                     <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家详情 <span class="caret"></span></a>
                     <ul class="dropdown-menu">

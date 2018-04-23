@@ -29,11 +29,11 @@
                     <div class="form-group">
                         <label for="password">产品分类：</label>
                         <select name="category_id" id="">
-                            {{--@foreach($categories as $key=>$category)--}}
-                            <option value="1">早餐</option>
-                            <option value="2">午餐</option>
-                            <option value="3">晚餐</option>
-                                {{--@endforeach--}}
+                            @foreach($categories as $key=>$category)
+                            <option value="{{$key}}">{{$category}}</option>
+                            {{--<option value="2">午餐</option>--}}
+                            {{--<option value="3">晚餐</option>--}}
+                                @endforeach
                         </select>
                     </div>
                     <div class="form-group">

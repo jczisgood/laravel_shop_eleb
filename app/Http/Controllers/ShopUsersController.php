@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\BusinessCategory;
 use App\BusinessDetails;
 use App\Businessuser;
 use App\ShopUser;
@@ -15,7 +16,9 @@ class ShopUsersController extends Controller
         //
         public function create()
         {
-            $categories=DB::table('businessusers')->pluck('name','id');
+//            $categories=DB::table('business_categories')->pluck('id','name');
+            $categories=BusinessCategory::all()->pluck('name','id');
+//            dd($categories);
             return view('shop_user.create',compact('categories'));
         }
 
@@ -26,6 +29,7 @@ class ShopUsersController extends Controller
                 'password'=>'required|min:6|max:18|confirmed',
                 'cover'=>'image',
                 'phone'=>'required|max:11|min:11',
+                'captcha' => 'required|captcha',
             ],[
                 'name.required'=>'姓名不能为空',
                 'name.min'=>'姓名长度至少2位',
@@ -37,6 +41,8 @@ class ShopUsersController extends Controller
                 'phone.required'=>'手机不能为空',
                 'phone.max'=>'手机号格式错误',
                 'phone.min'=>'手机号格式错误',
+                'captcha.captcha' => '验证码错误',
+                'captcha.required' => '验证码必须填写',
             ]);
             DB::transaction(function ()use($request){
                 DB::table('business_details')->insert([
@@ -64,12 +70,15 @@ class ShopUsersController extends Controller
         $this->validate($request,[
             'name'=>'required|min:2|max:8',
             'phone'=>'required|numeric',
+            'captcha' => 'required|captcha',
         ],[
             'name.required'=>'必须填写商店名字!',
             'name.min'=>'商店名字不能少于两位!',
             'name.max'=>'商店名字不能大于八位!',
             'phone.required'=>'必须填写手机号码!',
             'phone.numeric'=>'手机号码必须为数字!',
+            'captcha.captcha' => '验证码错误',
+            'captcha.required' => '验证码必须填写',
         ]);
         DB::transaction(function ()use($request,$shopuser){
             $shopuser->update([

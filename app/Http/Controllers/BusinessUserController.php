@@ -14,6 +14,7 @@ class BusinessUserController extends Controller
     //
     public function index()
     {
+
         return view('businessu.index');
     }
 
@@ -35,7 +36,6 @@ class BusinessUserController extends Controller
     public function update(Request $request,Businessuser $businessuser)
     {
         $this->validate($request,[
-            'shop_img'=>'image',
             'start_send'=>'required|numeric',
             'send_cost'=>'required|numeric',
             'estimate_time'=>'required|numeric',
@@ -56,10 +56,8 @@ class BusinessUserController extends Controller
 //       dd($img);
         $cover=$img[0];
 
-        if ($request->file('shop_img')!=null){
-            $res=$request->file('shop_img')->store('public/shop_img');
-            $cover=url(Storage::url($res));
-//            dd($cover);
+        if ($request->shop_img!=null){
+            $cover=$request->shop_img;
         }
             $businessd=BusinessDetails::where('id',$businessuser->user_id);
         $businessd->update([

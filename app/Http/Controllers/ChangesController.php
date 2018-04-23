@@ -22,10 +22,13 @@ class ChangesController extends Controller
         }
         $this->validate($request,[
             'password'=>'required|min:6|max:18|confirmed',
+            'captcha'=>'required|captcha'
         ],[
             'password.max'=>'密码最长为十八位',
             'password.min'=>'密码最短为六位',
             'password.required'=>'密码必填',
+            'captcha.captcha' => '验证码错误',
+            'captcha.required' => '验证码必须填写',
         ]);
         $businessuser->update([
             'password'=>bcrypt($request->password)
