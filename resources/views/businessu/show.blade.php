@@ -12,14 +12,13 @@
                 <form action="{{ route('businessuser.update',\Illuminate\Support\Facades\Auth::user()->id)}}" method="post" enctype="multipart/form-data">
                     <br>
                     {{--店铺LOGO:<input class="form-control" type="file" name="shop_img" placeholder="店铺LOGO"><br>--}}
-                    {{--店铺LOGO:<input class="form-control" type="file" name="shop_img" placeholder="店铺LOGO"><br>--}}
                     <div id="uploader-demo">
                         <!--用来存放item-->
                         <div id="fileList" class="uploader-list"></div>
                         <div id="filePicker">店铺LOGO</div>
                     </div>
                     <div>
-                        <img src="" id="img" alt="" width="100px">
+                        <img src="" id="img" alt="">
                     </div>
                     <input type="hidden" name="shop_img" value="" id="hidden">
 {{--                    店铺评分:<input class="form-control" type="text" name="shop_rating" value="{{$row[0]->shop_rating}}" placeholder="店铺评分"><br>--}}

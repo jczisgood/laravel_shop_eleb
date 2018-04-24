@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Activity;
 use App\BusinessDetails;
 use App\Businessuser;
 use Illuminate\Http\Request;
@@ -14,8 +15,10 @@ class BusinessUserController extends Controller
     //
     public function index()
     {
-
-        return view('businessu.index');
+        $t=time();
+        $rows=DB::table('activities')->where('end_time','>',$t)->get();
+//        dd($rows);
+        return view('businessu.index',compact('rows'));
     }
 
     public function show(Businessuser $businessuser)
@@ -76,6 +79,12 @@ class BusinessUserController extends Controller
         ]);
         session()->flash('success','修改成功');
         return redirect()->route('businessuser.index');
+    }
+
+    public function showa(Activity $activity)
+    {
+//        dd($activity);
+        return view('businessu.showa',compact('activity'));
     }
 
 }
