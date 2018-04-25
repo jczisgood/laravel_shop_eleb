@@ -32,8 +32,5 @@ class PicController extends Controller
             die;
         }
         return ['file'=>$cover];
-
     }
-
-
 }
