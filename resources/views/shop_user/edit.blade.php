@@ -16,8 +16,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password">联系电话：</label>
-                        <input type="number" name="phone" class="form-control" value="{{ $shopuser->phone }}">
+                        <label for="email">邮箱：</label>
+                        <input type="email" name="email" class="form-control" value="{{ $shopuser->email }}">
                     </div>
                     <div class="form-group">
                         <label for="password">产品分类：</label>

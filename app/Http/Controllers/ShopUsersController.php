@@ -8,6 +8,7 @@ use App\ShopUser;
 use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ShopUsersController extends Controller
 {
@@ -28,7 +29,7 @@ class ShopUsersController extends Controller
                 'name'=>'required|min:2|max:20',
                 'password'=>'required|min:6|max:18|confirmed',
                 'cover'=>'image',
-                'phone'=>'required|max:11|min:11',
+                'email'=>'required|email|unique:businessusers',
                 'captcha' => 'required|captcha',
             ],[
                 'name.required'=>'姓名不能为空',
@@ -38,9 +39,9 @@ class ShopUsersController extends Controller
                 'password.min'=>'密码长度不能少于6位',
                 'password.max'=>'密码长度不能大于18位',
                 'password.confirmed'=>'确认密码与密码不一致',
-                'phone.required'=>'手机不能为空',
-                'phone.max'=>'手机号格式错误',
-                'phone.min'=>'手机号格式错误',
+                'email.required'=>'邮箱必填',
+                'email.email'=>'邮箱格式不正确',
+                'email.unique'=>'邮箱已经存在',
                 'captcha.captcha' => '验证码错误',
                 'captcha.required' => '验证码必须填写',
             ]);
@@ -52,7 +53,7 @@ class ShopUsersController extends Controller
 
 //                dd($bd);
                 DB::table('businessusers')->insert([
-                    ['phone' =>$request->phone, 'name' => $request->name,'password'=>bcrypt($request->password),'category_id'=>$request->category_id,'user_id'=>$bd],
+                    ['email' =>$request->email, 'name' => $request->name,'password'=>bcrypt($request->password),'category_id'=>$request->category_id,'user_id'=>$bd],
                 ]);
 
             });
@@ -69,21 +70,25 @@ class ShopUsersController extends Controller
     {
         $this->validate($request,[
             'name'=>'required|min:2|max:8',
-            'phone'=>'required|numeric',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('businessusers')->ignore($shopuser->id)],
             'captcha' => 'required|captcha',
         ],[
             'name.required'=>'必须填写商店名字!',
             'name.min'=>'商店名字不能少于两位!',
             'name.max'=>'商店名字不能大于八位!',
-            'phone.required'=>'必须填写手机号码!',
-            'phone.numeric'=>'手机号码必须为数字!',
+            'email.required'=>'邮箱必须填写',
+            'email.email'=>'邮箱格式错误',
+            'email.unique'=>'邮箱已经存在',
             'captcha.captcha' => '验证码错误',
             'captcha.required' => '验证码必须填写',
         ]);
         DB::transaction(function ()use($request,$shopuser){
             $shopuser->update([
                 'name'=>$request->name,
-                'phone'=>$request->phone,
+                'email'=>$request->email,
                 'category_id'=>$request->category_id,
             ]);
             $name=$request->name;

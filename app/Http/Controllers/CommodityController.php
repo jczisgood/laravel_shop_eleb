@@ -13,7 +13,7 @@ class CommodityController extends Controller
     public function index(Request $request)
     {
         $name = $request->keywords;
-        $commodities = Commodity::where('name', 'like', "%$name%")->paginate(3);
+        $commodities = Commodity::where('name', 'like', "%$name%")->where('user_id',Auth::user()->user_id)->paginate(3);
         return view('commodity.index', compact('commodities', 'name'));
     }
 

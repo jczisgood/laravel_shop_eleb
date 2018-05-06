@@ -46,3 +46,7 @@ Route::get('/delete/{food}', 'FoodsController@destroy')->name('foods.destroy');/
 //        }
 //});
 Route::post('/set','PicController@create');
+Route::resource('order','OrderController');
+Route::get('/ordercount','OrderController@count')->name('/ordercount');
+Route::get('/foodlist','OrderController@foodlist')->name('/foodlist');
+Route::get('/order/{order}/send','OrderController@send')->name('order.send');

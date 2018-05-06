@@ -35,6 +35,7 @@
     </tr>
         @endforeach
 </table>
+{{$commodities->appends($name)->links()}}
 @stop
 @section('js')
     <script>

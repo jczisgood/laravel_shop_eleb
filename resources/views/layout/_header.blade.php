@@ -19,6 +19,9 @@
                 <li><a href="{{route('login')}}">商家登录</a></li>
                 @endguest
                 <li><a href="{{route('commodity.index')}}">食品分类</a></li>
+                <li><a href="{{route('order.index')}}">订单管理</a></li>
+                <li><a href="{{route('/ordercount')}}">订单量统计</a></li>
+                <li><a href="{{route('/foodlist')}}">菜品销量统计</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家详情 <span class="caret"></span></a>

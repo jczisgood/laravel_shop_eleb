@@ -10,4 +10,5 @@ class Foods extends Model
     protected $fillable=[
         'name','goods_img','goods_price','description','tips','user_id'
     ];
+
 }
