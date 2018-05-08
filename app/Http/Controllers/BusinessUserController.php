@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\BusinessDetails;
 use App\Businessuser;
+use App\Event;
+use App\EventMember;
+use App\EventPrize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +18,10 @@ class BusinessUserController extends Controller
     //
     public function index()
     {
-        $t=time();
-        $rows=DB::table('activities')->where('end_time','>',$t)->get();
+        $t=date('Y-m-d H:i:s');
+        $events=DB::table('events')->where('signup_end','>',$t)->get();
 //        dd($rows);
-        return view('businessu.index',compact('rows'));
+        return view('businessu.index',compact('events'));
     }
 
     public function show(Businessuser $businessuser)
@@ -81,10 +84,35 @@ class BusinessUserController extends Controller
         return redirect()->route('businessuser.index');
     }
 
-    public function showa(Activity $activity)
+    public function showa(Event $event)
     {
 //        dd($activity);
-        return view('businessu.showa',compact('activity'));
+       $rows= EventMember::where('events_id',$event->id)->get()->count();
+       $vals= EventMember::where('member_id',Auth::user()->id)->get()->count();
+//       dd($rows);
+        return view('businessu.showa',compact('event','rows','vals'));
     }
+
+    public function join(Event $event)
+    {
+        $rows= EventMember::where('events_id',$event->id)->get()->count();
+        $vals= EventMember::where('member_id',Auth::user()->id)->get()->count();
+        if($rows>=$event->signup_num || $vals>1){
+            return redirect()->route('activity.showa',$event->id)->with('success','参与失败,人数已满');
+        }
+        //写入数据库
+        EventMember::create([
+            'events_id'=>$event->id,
+            'member_id'=>Auth::user()->id,
+        ]);
+        return redirect()->route('activity.showa',$event->id)->with('success','参与成功');
+    }
+
+    public function see(Event $event)
+    {
+        $eventprizes=EventPrize::where('events_id',$event->id)->where('member_id','<>',0)->get();
+        return view('businessu.see',compact('eventprizes'));
+    }
+
 
 }

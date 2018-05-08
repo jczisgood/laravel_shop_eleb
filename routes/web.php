@@ -29,7 +29,9 @@ Route::get('/food/{commodity}', 'FoodsController@create')->name('foods.create');
 Route::post('/store/{commodity}', 'FoodsController@store')->name('foods.store');//用户列表
 Route::get('/edit/{food}', 'FoodsController@edit')->name('foods.edit');//用户列表
 Route::post('/update/{food}', 'FoodsController@update')->name('foods.update');//用户列表
-Route::get('/showa/{activity}', 'BusinessUserController@showa')->name('activity.showa');//用户列表
+Route::get('/showa/{event}', 'BusinessUserController@showa')->name('activity.showa');//用户列表
+Route::get('/join/{event}', 'BusinessUserController@join')->name('event.join');//用户列表
+Route::get('/see/{event}', 'BusinessUserController@see')->name('event.see');//用户列表
 Route::get('/show/{food}', 'FoodsController@show')->name('foods.show');//用户列表
 Route::get('/delete/{food}', 'FoodsController@destroy')->name('foods.destroy');//用户列表
 //Route::get('/oss', function()

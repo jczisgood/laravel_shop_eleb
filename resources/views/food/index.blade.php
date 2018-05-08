@@ -24,7 +24,7 @@
             </tr>
             @foreach($foods as $food)
             <tr data-id="{{$food->id}}">
-                <td><img src="{{$food->goods_img}}" alt="" class="img-circle"></td>
+                <td><img src="{{$food->goods_img}}" alt="" class="img-circle" width="100px"></td>
                 <td>{{$food->name}}</td>
                 <td>{{$food->rating}}</td>
                 <td>{{$food->goods_price}}</td>
