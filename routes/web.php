@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','LoginController@create')->name('login');
 Route::get('/login','LoginController@create')->name('login');
 Route::post('/login','LoginController@store')->name('login');
 Route::get('/change/{businessuser}','ChangesController@edit')->name('change.edit');
